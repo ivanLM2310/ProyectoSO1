@@ -28,7 +28,7 @@ static int leer_memoria(struct seq_file *m, void *v){
 	seq_printf(m, "Nombre2: Herminio Rolando García Sánchez\n");	
 	seq_printf(m, "Memoria Total: %8lu MB\n",Convert(info.totalram)/1024);
 	seq_printf(m, "Memoria Libre: %8lu kB\n",Convert(info.freeram)/1024);
-	seq_printf(m, "Memoria Usada: %ld %%\n", (((Convert(info.totalram)-Convert(info.freeram))*100) / (Convert(info.totalram))*100)/100);
+	seq_printf(m, "Memoria Usada: %ld %%\n", (((Convert(info.freeram)) / (Convert(info.totalram)))/100);
 	#undef K
 	return 0;
 
