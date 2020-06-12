@@ -27,7 +27,7 @@ static int leer_memoria(struct seq_file *m, void *v){
     seq_printf(m, "Carnet2: 200312755\n");
 	seq_printf(m, "Nombre2: Herminio Rolando García Sánchez\n");	
 	seq_printf(m, "Memoria Total: %8lu MB\n",Convert(info.totalram)/1024);
-	seq_printf(m, "Memoria Libre: %8lu kB\n",Convert(info.freeram)/1024);
+	seq_printf(m, "Memoria Libre: %8lu MB\n",Convert(info.freeram)/1024);
 	seq_printf(m, "Memoria Usada: %ld %%\n", (((Convert(info.freeram))*100) / (Convert(info.totalram))*100)/100);
 	#undef K
 	return 0;
@@ -45,6 +45,9 @@ static const struct file_operations mem_info_fops = {
 	.llseek = seq_lseek,
 	.release = single_release,
 };
+
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("Modulo de Memoria - Sistemas Operativos 1");
 
 static int __init memo_201122826_init(void)
 {
