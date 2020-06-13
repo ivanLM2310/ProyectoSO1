@@ -1,17 +1,22 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gorilla/websocket"
 )
 
-var clients = make(map[*websocket.Conn]bool)
+var clients = make(map[*websocket.Conn]string)
+
+//Message es estructura
+type Message struct {
+	Dato string `json:"dato"`
+}
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -29,31 +34,20 @@ var upgrader = websocket.Upgrader{
 // endpoint
 func reader(conn *websocket.Conn) {
 	for {
-		// read in a message
 
-		// print out that message for clarity
-		//fmt.Println(string(p))
-
-		err := conn.WriteJSON("msg de salida")
+		messageType, p, err := conn.ReadMessage()
 		if err != nil {
 			log.Printf("error: %v", err)
-
+			delete(clients, conn)
+			break
 		}
-		log.Printf("---------")
-		time.Sleep(2000 * time.Millisecond)
-	}
-}
-func lectura(conn *websocket.Conn) {
-	for {
-		i := 0
-
-		err := conn.WriteJSON("msg" + strconv.Itoa(i))
-		if err != nil {
-			log.Printf("error: %v", err)
-			conn.Close()
+		fmt.Println(string(p))
+		clients[conn] = string(p)
+		if err := conn.WriteMessage(messageType, p); err != nil {
+			log.Println(err)
+			return
 		}
-		i++
-		time.Sleep(1000 * time.Millisecond)
+
 	}
 }
 
@@ -69,12 +63,49 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 		log.Println("2-------------------------------------------")
 		log.Println(err)
 	}
-	clients[ws] = true
+	defer ws.Close()
 
 	// listen indefinitely for new messages coming
 	// through on our WebSocket connection
 	reader(ws)
 
+}
+
+func envioInfo() {
+	for {
+		// Grab the next message from the broadcast channel
+
+		// Send it out to every client that is currently connected
+
+		for client := range clients {
+
+			var value string = clients[client]
+			log.Println(value)
+			/*
+				data, err := ioutil.ReadFile("test.txt")
+				if err != nil {
+					fmt.Println("File reading error", err)
+					return
+				}
+			*/
+			salidaJI := &Message{
+				Dato: value + "_aca ya se junto papu"}
+
+			salidaJ, _ := json.Marshal(salidaJI)
+			fmt.Println(string(salidaJ))
+
+			errW := client.WriteJSON(string(salidaJ))
+			if errW != nil {
+				log.Printf("error: %v", errW)
+				client.Close()
+				delete(clients, client)
+			}
+
+		}
+		fmt.Println(len(clients))
+		log.Printf("---------")
+		time.Sleep(2000 * time.Millisecond)
+	}
 }
 
 //Compile templates on start
@@ -103,7 +134,7 @@ func main() {
 	http.HandleFunc("/", mainHandler)
 	http.HandleFunc("/about", aboutHandler)
 	http.HandleFunc("/ws", serveWs)
-
+	go envioInfo()
 	//Listen on port 8080
 	http.ListenAndServe(":8080", nil)
 }

@@ -4,5 +4,34 @@
 	<h2>Main</h2>
 	<div>This is the Main page</div>
 </div>
+<script>
+	let socket = new WebSocket("ws://localhost:8080/ws");
+
+	
+	console.log("Attempting Connection...");
+
+	socket.onopen = () => {
+		console.log("Successfully Connected");
+		socket.send("hola servidorcito:main");
+	};
+
+	socket.onmessage = msg => {
+		console.log(msg);
+	};
+
+	socket.onclose = event => {
+		console.log("Socket Closed Connection: ", event);
+	};
+
+	socket.onerror = error => {
+		console.log("Socket Error: ", error);
+	};
+	
+
+	let sendMsg = msg => {
+		console.log("sending msg: ", msg);
+		socket.send(msg);
+	};
+</script>
 {{template "footer" .}}
 {{end}}
