@@ -1,0 +1,1 @@
+cmd_/home/ivan/Git/ProyectoSO1/memo_201122826/memo_201122826.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /home/ivan/Git/ProyectoSO1/memo_201122826/memo_201122826.ko /home/ivan/Git/ProyectoSO1/memo_201122826/memo_201122826.o /home/ivan/Git/ProyectoSO1/memo_201122826/memo_201122826.mod.o ;  true
