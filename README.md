@@ -1,2 +1,2 @@
 # ProyectoSO1
-## Ivan Alfonso Lopoez
+## Ivan Alfonso Lopez
