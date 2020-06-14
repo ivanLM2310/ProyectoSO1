@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -81,13 +82,14 @@ func envioInfo() {
 
 			var value string = clients[client]
 			log.Println(value)
-			/*
-				data, err := ioutil.ReadFile("test.txt")
-				if err != nil {
-					fmt.Println("File reading error", err)
-					return
-				}
-			*/
+
+			data, err := ioutil.ReadFile("/proc/memo_201122826")
+			if err != nil {
+				fmt.Println("File reading error", err)
+				return
+			}
+			fmt.Print(string(data))
+
 			salidaJI := &Message{
 				Dato: value + "_aca ya se junto papu"}
 
