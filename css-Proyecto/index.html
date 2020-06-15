@@ -367,6 +367,49 @@
           <!-- Content Row -->
 
           <div class="row">
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Gráfica Líneal</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Dropdown Header:</div>
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tabla">
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
 
             <!-- Area Chart -->
             <div class="col-xl-8 col-lg-7">
@@ -629,7 +672,21 @@
     };
   
     socket.onmessage = msg => {
+
       console.log(msg.data);
+      var objeto = JSON.parse( msg.data);
+      var arr = objeto["lista"];
+      $("#tabla").html("");
+      for (var i = 0; i < arr.length; i++){
+        var obj = arr[i];
+        var fila = $("<tr></th>");
+        fila.append($("<td></td>").html(obj["pid"]));
+        fila.append($("<td></td>").html(obj["padre"]));
+        fila.append($("<td></td>").html(obj["nombre"]));
+        fila.append($("<td></td>").html(obj["estado"]));
+        fila.append($("<td></td>").html(obj["porcen"]));
+        $("#tabla").append(fila)
+      }
     };
   
     socket.onclose = event => {

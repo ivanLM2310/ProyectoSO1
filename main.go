@@ -10,7 +10,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 import (
-	"encoding/json"
 	"io/ioutil"
 	"strings"
 )
@@ -30,6 +29,11 @@ type Proceso struct {
 	Estado  string `json:"estado"`
 	Porcen  string `json:"porcen"`
 	Padre   string `json:"padre"`
+}
+
+//ListProceso Lista de procesos
+type ListProceso struct {
+	Lista []Proceso `json:"lista"`
 }
 
 var upgrader = websocket.Upgrader{
@@ -83,8 +87,10 @@ func envioInfo() {
 
 			var value string = clients[client]
 			log.Println(value)
-			var salidaT []byte
+			//var salidaT []byte
+			var salidaLista *ListProceso
 			if value == "PRINCIPAL" {
+				//----------------------------PAGINA PRINCIPAL---------------------------
 				data, err := ioutil.ReadFile("/proc/cpu_201122826")
 				if err != nil {
 					fmt.Println("File reading error", err)
@@ -94,38 +100,58 @@ func envioInfo() {
 				fmt.Print(string(data))
 
 				arrLineas := strings.Split(strData, "\n")
+				arrS := []Proceso{}
+
 				for _, linea := range arrLineas {
 					if linea != "" {
 						arrElement := strings.Split(linea, "\t\t")
 						if len(arrElement) == 4 {
 							var e Proceso
-							e.PID = strings.Split(arrElement[0], ":")[1]
-							e.Nombre = strings.Split(arrElement[1], ":")[1]
-							e.Porcen = strings.Split(arrElement[2], ":")[1]
-							e.Estado = strings.Split(arrElement[3], ":")[1]
+							e.PID = strings.Trim(strings.Split(arrElement[0], ":")[1], " ")
+							e.Nombre = strings.Trim(strings.Split(arrElement[1], ":")[1], " ")
+							e.Porcen = strings.Trim(strings.Split(arrElement[2], ":")[1], " ")
+							e.Estado = strings.Trim(strings.Split(arrElement[3], ":")[1], " ")
 							e.Padre = ""
 							e.Usuario = ""
+							arrS = append(arrS, e)
 						} else if len(arrElement) == 5 {
-
+							var e Proceso
+							e.PID = strings.Trim(strings.Split(arrElement[1], ":")[1], " ")
+							e.Nombre = strings.Trim(strings.Split(arrElement[2], ":")[1], " ")
+							e.Porcen = strings.Trim(strings.Split(arrElement[3], ":")[1], " ")
+							e.Estado = strings.Trim(strings.Split(arrElement[4], ":")[1], " ")
+							e.Padre = strings.Trim(strings.Split(arrElement[0], ":")[1], " ")
+							e.Usuario = ""
+							arrS = append(arrS, e)
 						} else {
-
+							//ERROR
 						}
 					}
 				}
 
-				salidaJI := &Message{
-					//Dato: value + "_aca ya se junto papu"}
-					Dato: string(data)}
-				salidaJ, _ := json.Marshal(salidaJI)
-				salidaT = salidaJ
-				fmt.Println(string(salidaJ))
+				/*
+					salidaJI := &Message{
+						//Dato: value + "_aca ya se junto papu"}
+						Dato: string(data)}
+					salidaJ, _ := json.Marshal(salidaJI)
+					salidaT = salidaJ
+					fmt.Println(string(salidaJ))
+				*/
+				salidaJI := &ListProceso{
+					Lista: arrS}
+				salidaLista = salidaJI
+				//salidaJ, _ := json.Marshal(salidaJI)
+				//salidaT = salidaJ
+
 			} else if value == "CPU" {
+				//----------------------------PAGINA CPU---------------------------
 
 			} else if value == "RAM" {
+				//----------------------------PAGINA RAM---------------------------
 
 			}
 
-			errW := client.WriteJSON(string(salidaT))
+			errW := client.WriteJSON(salidaLista)
 			if errW != nil {
 				log.Printf("error: %v", errW)
 				client.Close()
