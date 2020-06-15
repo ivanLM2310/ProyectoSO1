@@ -617,7 +617,35 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-
+  <script>
+    let socket = new WebSocket("ws://localhost:3000/ws");
+  
+    
+    console.log("Attempting Connection...");
+  
+    socket.onopen = () => {
+      console.log("Successfully Connected");
+      socket.send("PRINCIPAL");
+    };
+  
+    socket.onmessage = msg => {
+      console.log(msg.data);
+    };
+  
+    socket.onclose = event => {
+      console.log("Socket Closed Connection: ", event);
+    };
+  
+    socket.onerror = error => {
+      console.log("Socket Error: ", error);
+    };
+    
+  
+    let sendMsg = msg => {
+      console.log("sending msg: ", msg);
+      socket.send(msg);
+    };
+  </script>
 </body>
 
 </html>

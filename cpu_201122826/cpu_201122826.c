@@ -44,11 +44,19 @@ void read_process(struct seq_file *m, struct task_struct *s,int nivel)
     char estado[50];
     strEstados(s,estado);
     //strcpy(estado,);
+    #define Convert(x) ((x) << (PAGE_SHIFT - 10))
     if(nivel == 1){
-        seq_printf(m,"PID: %d\t\tNombre: %s\t\tEstado:%s\n",s->pid, s->comm, estado);
+        seq_printf(m,"PID: %d\t\tNombre: %s\t\tMemoria: %8lu\t\tEstado:%s\n"
+        ,s->pid
+        , s->comm
+        ,Convert(s->mm->total_vm)/1024
+        ,(((Convert(s->mm->total_vm)/1024)*100) / (7881)*100)/100
+        , estado
+        );
     }else{
-        seq_printf(m,"PID PADRE:%d\t\tPID: %d\t\tNombre: %s\t\tEstado:%s\n",nivel,s->pid, s->comm, estado);
+        seq_printf(m,"PID PADRE:%d\t\tPID: %d\t\tNombre: %s\t\tMemoria: %8lu\t\tEstado:%s\n",nivel,s->pid, s->comm,Convert(s->mm->total_vm)/1024, estado);
     }
+    #undef K
     list_for_each(list, &s->children) {
         task = list_entry(list, struct task_struct, sibling);
         read_process(m, task,s->pid);
