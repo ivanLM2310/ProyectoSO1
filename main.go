@@ -11,7 +11,11 @@ import (
 )
 import (
 	"io/ioutil"
+	"os"
+	"strconv"
 	"strings"
+
+	"github.com/shirou/gopsutil/cpu"
 )
 
 var clients = make(map[*websocket.Conn]string)
@@ -34,6 +38,18 @@ type Proceso struct {
 //ListProceso Lista de procesos
 type ListProceso struct {
 	Lista []Proceso `json:"lista"`
+}
+
+//UtilizacionR es estructura para guardar la ram utilizada
+type UtilizacionR struct {
+	Total       string `json:"total"`
+	Utilizacion string `json:"utilizacion"`
+	Porcentaje  string `json:"porcentaje"`
+}
+
+//UtilizacionCPU es estructura para guardar porcentajes cpu
+type UtilizacionCPU struct {
+	CPU []string `json:"cpu"`
 }
 
 var upgrader = websocket.Upgrader{
@@ -88,7 +104,6 @@ func envioInfo() {
 			var value string = clients[client]
 			log.Println(value)
 			//var salidaT []byte
-			var salidaLista *ListProceso
 			if value == "PRINCIPAL" {
 				//----------------------------PAGINA PRINCIPAL---------------------------
 				data, err := ioutil.ReadFile("/proc/cpu_201122826")
@@ -97,7 +112,7 @@ func envioInfo() {
 					return
 				}
 				strData := string(data)
-				fmt.Print(string(data))
+				//fmt.Print(string(data))
 
 				arrLineas := strings.Split(strData, "\n")
 				arrS := []Proceso{}
@@ -139,23 +154,56 @@ func envioInfo() {
 				*/
 				salidaJI := &ListProceso{
 					Lista: arrS}
-				salidaLista = salidaJI
-				//salidaJ, _ := json.Marshal(salidaJI)
-				//salidaT = salidaJ
+				errW := client.WriteJSON(salidaJI)
+				if errW != nil {
+					log.Printf("error: %v", errW)
+					client.Close()
+					delete(clients, client)
+				}
 
 			} else if value == "CPU" {
 				//----------------------------PAGINA CPU---------------------------
-
+				salidaJ := getInfoCPU()
+				errW := client.WriteJSON(&salidaJ)
+				if errW != nil {
+					log.Printf("error: %v", errW)
+					client.Close()
+					delete(clients, client)
+				}
 			} else if value == "RAM" {
 				//----------------------------PAGINA RAM---------------------------
-
-			}
-
-			errW := client.WriteJSON(salidaLista)
-			if errW != nil {
-				log.Printf("error: %v", errW)
-				client.Close()
-				delete(clients, client)
+				data, err := ioutil.ReadFile("/proc/memo_201122826")
+				if err != nil {
+					fmt.Println("File reading error", err)
+					return
+				}
+				strData := string(data)
+				fmt.Print(string(data))
+				arrLineas := strings.Split(strData, "\n")
+				elem := arrLineas[len(arrLineas)-2]
+				numR := strings.Replace(strings.Trim(strings.Split(elem, ":")[1], " "), " %", "", -1)
+				var r UtilizacionR
+				r.Total = strings.Split(arrLineas[len(arrLineas)-4], ":")[1]
+				r.Utilizacion = strings.Split(arrLineas[len(arrLineas)-3], ":")[1]
+				r.Porcentaje = strings.Replace(numR, "\"", "", -1)
+				errW := client.WriteJSON(&r)
+				if errW != nil {
+					log.Printf("error: %v", errW)
+					client.Close()
+					delete(clients, client)
+				}
+			} else {
+				clients[client] = "PRINCIPAL"
+				if i, err := strconv.Atoi(value); err == nil {
+					proc, err := os.FindProcess(i)
+					if err != nil {
+						log.Println(err)
+					}
+					// Kill el proceso
+					proc.Kill()
+					log.Println("proceso eliminado ...")
+				}
+				continue
 			}
 
 		}
@@ -163,6 +211,27 @@ func envioInfo() {
 		log.Printf("---------")
 		time.Sleep(2000 * time.Millisecond)
 	}
+}
+
+func dealwithErr(err error) {
+	if err != nil {
+		fmt.Println(err)
+		//os.Exit(-1)
+	}
+}
+
+//getInfoCPU funcion para sacar rendimiento cpu
+func getInfoCPU() UtilizacionCPU {
+	percentage, err := cpu.Percent(0, true)
+	dealwithErr(err)
+
+	listC := []string{}
+	for _, cpupercent := range percentage {
+		listC = append(listC, strconv.FormatFloat(cpupercent, 'f', 2, 64))
+	}
+	var objC UtilizacionCPU
+	objC.CPU = listC
+	return objC
 }
 
 func main() {

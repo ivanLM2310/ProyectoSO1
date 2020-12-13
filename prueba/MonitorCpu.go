@@ -82,6 +82,6 @@ func main() {
 	mux.HandleFunc("/", SayName)
 	mux.HandleFunc("/gethwdata", GetHardwareData)
 
-	http.ListenAndServe(":8080", mux)
+	http.ListenAndServe(":3080", mux)
 
 }

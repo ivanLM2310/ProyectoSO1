@@ -54,85 +54,29 @@
         MENU
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-   <!--    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Componentes</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Propiedades Componentes:</h6>
-            <a class="collapse-item" href="buttons.html">Botones</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-          </div>
-        </div>
-      </li> -->
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
- -->
-      <!-- Divider -->
       <hr class="sidebar-divider">
 
       <!-- Heading -->
       <div class="sidebar-heading">
-     
+    
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Páginas</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Menú:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Registrar</a>
-            <a class="collapse-item" href="forgot-password.html">Recuperar Contraseña</a>
-            <div class="collapse-divider"></div>
-           <!--  <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a> -->
-          </div>
-        </div>
-      </li>
+    
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item active">
+           <!-- Nav Item - Charts -->
+        <li class="nav-item active">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Gráficas</span></a>
+          <span>Gráficas Uso CPU</span></a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="GraficaM.html">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Gráficas Memoria</span></a>
+          <span>Gráficas Memoria RAM</span></a>
       </li>
+    
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tablas</span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -335,64 +279,118 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
+
         <div class="container-fluid">
+          <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">CPU1</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div id="txtCpu1" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">CPU 2</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div id="txtCpu2" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Gráficas</h1>
-          <p class="mb-4">Página permite visualizar gráficas dinámicas que muestren el uso del CPU del servidor.  </p>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">CPU 3</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div id="txtCpu3" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+                        </div>
+                       
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">CPU4</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div id="txtCpu4" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+                        </div>
+                       
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
           <!-- Content Row -->
           <div class="row">
 
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12 col-lg-12">
 
               <!-- Area Chart -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Gráfica lineal</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Gráfica Utilizacion de CPU</h6>
                 </div>
                 <div class="card-body">
                   <div class="chart-area">
                     <canvas id="myAreaChart"></canvas>
                   </div>
                   <hr>
-                 Gráfica muestra el rendimiento del CPU.
+                 Gráfica muestra el rendimiento de la memoria.
                 </div>
               </div>
 
-              <!-- Bar Chart -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Gráfica de barra</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-bar">
-                    <canvas id="myBarChart"></canvas>
-                  </div>
-                  <hr>
-                  Gráfica muestra el rendimiento del CPU.
-                </div>
-              </div>
+              
 
             </div>
 
-            <!-- Donut Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Gráfica de pie</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-                  Gráfica muestra el rendimiento del CPU.
-                </div>
-              </div>
-            </div>
+         
           </div>
 
         </div>
@@ -427,7 +425,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">RLista para salir?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Lista para salir?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -455,7 +453,172 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
+  <script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#858796';
+
+    // Area Chart Example
+    var ctx = document.getElementById("myAreaChart");
+    var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ["24 Seg.", "22 Seg.", "20 Seg.", "18 Seg.", "16 Seg.", "14 Seg.", "12 Seg.", "10 Seg.", "8 Seg.", "6 Seg.", "4 Seg.", "2 Seg.","0 Seg."],
+        datasets: [{
+          label: "CPU 1",
+          lineTension: 0.3,
+          backgroundColor: "rgba(200, 14, 14, 0.1)",
+          borderColor: "rgba(200, 14, 14, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(200, 14, 14, 1)",
+          pointBorderColor: "rgba(200, 14, 14, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(200, 14, 14, 1)",
+          pointHoverBorderColor: "rgba(200, 14, 14, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
+        },{
+          label: "CPU 2",
+          lineTension: 0.3,
+          backgroundColor: "rgba(241, 68, 30, 0.1)",
+          borderColor: "rgba(241, 68, 30, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(241, 68, 30, 1)",
+          pointBorderColor: "rgba(241, 68, 30, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(241, 68, 30, 1)",
+          pointHoverBorderColor: "rgba(241, 68, 30, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
+        },{
+          label: "CPU 3",
+          lineTension: 0.3,
+          backgroundColor: "rgba(249, 196, 36, 0.1)",
+          borderColor: "rgba(249, 196, 36, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(249, 196, 36, 1)",
+          pointBorderColor: "rgba(249, 196, 36, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(249, 196, 36, 1)",
+          pointHoverBorderColor: "rgba(249, 196, 36, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
+        },{
+          label: "CPU 4",
+          lineTension: 0.3,
+          backgroundColor: "rgba(65, 210, 40, 0.1)",
+          borderColor: "rgba(65, 210, 40, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(65, 210, 40, 1)",
+          pointBorderColor: "rgba(65, 210, 40, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(65, 210, 40, 1)",
+          pointHoverBorderColor: "rgba(65, 210, 40, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              maxTicksLimit: 5,
+              min : 0,
+              max : 100,
+              padding: 10,
+              // Include a dollar sign in the ticks
+              callback: function(value, index, values) {
+                return value + "%";
+              }
+            },
+            gridLines: {
+              color: "rgb(234, 236, 244)",
+              zeroLineColor: "rgb(234, 236, 244)",
+              drawBorder: false,
+              borderDash: [2],
+              zeroLineBorderDash: [2]
+            }
+          }],
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+
+    $(document).ready(function(){
+      
+
+    });
+
+    let socket = new WebSocket("ws://localhost:3000/ws");
+  
+    console.log("Attempting Connection...");
+  
+    socket.onopen = () => {
+      console.log("Successfully Connected");
+      socket.send("CPU");
+    };
+  
+    socket.onmessage = msg => {
+
+      if(msg.data != "CPU"){
+        
+        
+        var v = JSON.parse(msg.data)["cpu"];
+       
+        v.forEach(function(element, index,){
+          $("#txtCpu"+(index + 1)).html(element + "%")
+          myLineChart.data.datasets[index].data.shift();
+          console.log(parseInt(element))
+          myLineChart.data.datasets[index].data[12] = parseInt(element);
+        });
+        myLineChart.update();
+        console.log(v); 
+      }
+        
+    };
+  
+    socket.onclose = event => {
+      console.log("Socket Closed Connection: ", event);
+    };
+  
+    socket.onerror = error => {
+      console.log("Socket Error: ", error);
+    };
+    
+  
+    let sendMsg = msg => {
+      console.log("sending msg: ", msg);
+      socket.send(msg);
+    };
+
+  </script>
   <script src="js/demo/chart-pie-demo.js"></script>
   <script src="js/demo/chart-bar-demo.js"></script>
 

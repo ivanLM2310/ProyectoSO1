@@ -1,31 +1,14 @@
 package main
 
 import (
-
-
 	"log"
 	"net/http"
-
-
- 
 )
- 
- 
- 
- 
- 
 
- 
- 
- 
-
-func main() {
+func main1() {
 
 	fs := http.FileServer(http.Dir("./css-Proyecto"))
-http.Handle("/", fs)
- 
- 
- 
+	http.Handle("/", fs)
 
 	log.Println("Listening on :3000...")
 	err := http.ListenAndServe(":3000", nil)
